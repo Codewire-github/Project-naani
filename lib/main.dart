@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:naani/src/screens/homescreen.dart';
+import 'package:naani/screens/Signup/screens/welcome_screen.dart';
+import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
