@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
 
@@ -15,41 +16,51 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-        child: Column(
+        child: Stack(
           children: [
-            Text(
-              'Welcome to Naani!',
-              style: TextStyle(fontSize: 24),
+            Column(
+              children: [
+                Text(
+                  'Welcome to Naani!',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ],
             ),
-            GestureDetector(
-              onTap: () => {Get.to(() => CameraScreenUnauthoried())},
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(6, 6, 15, 6),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Color.fromARGB(255, 164, 208, 162)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.black),
-                        child: Icon(
-                          Icons.add,
-                          color: Color.fromARGB(255, 164, 208, 162),
-                          size: 20,
-                        )),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Scan your eye',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600),
-                    )
-                  ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 30),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: () => {Get.to(() => CameraScreenUnauthoried())},
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(6, 6, 15, 6),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Color.fromARGB(255, 164, 208, 162)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.black),
+                            child: Icon(
+                              Icons.panorama_fish_eye,
+                              color: Color.fromARGB(255, 164, 208, 162),
+                              size: 20,
+                            )),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Scan your eye',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

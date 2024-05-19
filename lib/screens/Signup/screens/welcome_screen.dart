@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/Signup/screens/name_screen.dart';
+import 'package:naani/screens/home_screen/screens/homescreen.dart';
 import 'package:naani/screens/signup/widgets/custom_text_field.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -100,6 +101,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         //           enteredEmailAddress: emailController.text,
                         //         ))
                         //     : () {};
+
+                        Get.to(() => HomeScreen());
                       },
                       child: const Text(
                         "Continue my journey",

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:naani/screens/Signup/screens/welcome_screen.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
@@ -20,6 +23,11 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+        textTheme: Platform.isAndroid
+            ? GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            : null,
+      ),
       debugShowCheckedModeBanner: false,
       home: const WelcomeScreen(),
     );

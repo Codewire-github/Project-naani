@@ -20,7 +20,10 @@ class CustomLargeButton extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Poppins"),
           ),
         ));
   }
