@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
+import 'package:naani/screens/exercises/exercise_screens/blink1.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
-import 'package:naani/screens/exercises/blinking/blink1.dart';
 import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
 
