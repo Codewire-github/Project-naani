@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
 import 'package:naani/screens/Signup/screens/height_weight_screen.dart';
@@ -76,7 +77,7 @@ class _NameScreenState extends State<NameScreen> {
             child: CustomLargeButton(
                 label: "Continue",
                 onPressed: () async {
-                  // await storage.write(key: name, value: _textController.text);
+                  await storage.write(key: nameLS, value: _textController.text);
 
                   Get.to(() => HeightWeightScreen());
                 }),

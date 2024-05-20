@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 
 import 'package:flutter/services.dart';
 import 'package:naani/common/colors.dart';
+import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
 import 'package:naani/screens/Signup/screens/email_screen.dart';
+import 'package:naani/screens/Signup/screens/location_screen.dart';
 
 class HeightWeightScreen extends StatefulWidget {
   const HeightWeightScreen({super.key});
@@ -17,6 +19,10 @@ class HeightWeightScreen extends StatefulWidget {
 class _HeightWeightScreenState extends State<HeightWeightScreen> {
   String heightOption = "Cm";
   String weightOption = "Kg";
+
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +45,7 @@ class _HeightWeightScreenState extends State<HeightWeightScreen> {
                   child: TextField(
                     //controller: _controller,
                     keyboardType: TextInputType.number,
+                    controller: heightController,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
@@ -128,6 +135,7 @@ class _HeightWeightScreenState extends State<HeightWeightScreen> {
                   width: 180,
                   child: TextField(
                     //controller: _controller,
+                    controller: weightController,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
@@ -209,8 +217,14 @@ class _HeightWeightScreenState extends State<HeightWeightScreen> {
           const SizedBox(height: 20),
           CustomLargeButton(
               label: "Continue",
-              onPressed: () {
-                Get.to(() => EmailScreen());
+              onPressed: () async {
+                await storage.write(
+                    key: heightLS,
+                    value: "${heightController.text} $heightOption");
+                await storage.write(
+                    key: weightLS,
+                    value: "${weightController.text} $weightOption");
+                Get.to(() => LocationSelectionScreen());
               })
         ],
       ),
