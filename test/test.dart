@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:naani/screens/Signup/screens/welcome_screen.dart';
 import 'package:naani/screens/exercises/blinking/blink1.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
+import 'package:naani/screens/info_screen/hospital_location_screen.dart';
+import 'package:naani/screens/info_screen/info_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +24,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

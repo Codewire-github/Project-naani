@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/Signup/screens/name_screen.dart';
 import 'package:naani/screens/signup/screens/email_verification.dart';
+import 'package:naani/screens/home_screen/screens/homescreen.dart';
 import 'package:naani/screens/signup/widgets/custom_text_field.dart';
 
 class WelcomeScreen extends StatefulWidget {

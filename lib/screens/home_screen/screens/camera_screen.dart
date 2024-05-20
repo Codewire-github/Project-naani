@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:naani/screens/home_screen/screens/info_screen.dart';
+import 'package:naani/screens/info_screen/info_screen.dart';
 
 class CameraScreenUnauthoried extends StatefulWidget {
   const CameraScreenUnauthoried({Key? key}) : super(key: key);
@@ -19,6 +18,7 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
 
   File? _image;
   bool isFlashOn = false;
+  final double _defaultZoomLevel = 1.2;
 
   @override
   void initState() {
@@ -30,18 +30,21 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
   }
 
   Future<void> _takePicture() async {
+    if (_controller == null || !_controller!.value.isInitialized) return;
+
     try {
       final image = await _controller!.takePicture();
-
       await _controller!.dispose();
       await _updateImage(File(image.path));
+
       if (_image != null) {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => InfoScreenUnauthorized(
-                    photo: File(image.path),
-                  )),
+            builder: (BuildContext context) => InfoScreenUnauthorized(
+              photo: _image!,
+            ),
+          ),
         );
       }
       await _initializeCamera();
@@ -70,23 +73,24 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
 
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
-    final firstCamera = cameras.first;
+    if (cameras.isNotEmpty) {
+      final firstCamera = cameras.first;
 
-    _controller = CameraController(firstCamera, ResolutionPreset.high);
+      _controller = CameraController(firstCamera, ResolutionPreset.high);
 
-    // Next, initialize the controller. This returns a Future.
-    try {
-      await _controller!.initialize().then((_) {
+      try {
+        await _controller!.initialize();
         if (!mounted) return;
+        await _controller!.setZoomLevel(_defaultZoomLevel);
         setState(() {});
-      });
-    } on CameraException catch (e) {
-      debugPrint("camera error $e");
+      } on CameraException catch (e) {
+        debugPrint("camera error $e");
+      }
     }
   }
 
   void toggleFlash() async {
-    if (_controller!.value.isInitialized) {
+    if (_controller != null && _controller!.value.isInitialized) {
       if (!isFlashOn) {
         await _controller?.setFlashMode(FlashMode.torch);
       } else {
@@ -110,135 +114,130 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
       extendBody: true,
       backgroundColor: Colors.black,
       body: Stack(children: [
-        Stack(
-          children: [
-            Container(
-                height: double.infinity,
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 90),
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Container(
-                      height: 100,
-                      child: _controller!.value.isInitialized
-                          ? CameraPreview(_controller!)
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            )),
-                )),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 50, left: 20),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.black.withOpacity(0.7),
-                    ),
-                    child: IconButton(
-                      onPressed: () => {Get.back()},
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )),
+        if (_controller != null && _controller!.value.isInitialized)
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: 90),
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: Container(
+                height: 100,
+                child: CameraPreview(_controller!),
+              ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 50, right: 20),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.black.withOpacity(0.7),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        toggleFlash();
-                      },
-                      icon: Icon(
-                        Icons.flash_on,
-                        size: 25,
-                        color: isFlashOn ? Colors.orange : Colors.grey[400],
-                      ),
-                    ),
-                  )),
+          )
+        else
+          Center(child: CircularProgressIndicator()),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50, left: 20),
+            child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.black.withOpacity(0.7),
+              ),
+              child: IconButton(
+                onPressed: () => {Get.back()},
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 25,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                  padding: const EdgeInsets.only(bottom: 125, left: 30),
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white.withOpacity(0.7),
-                    ),
-                    child: IconButton(
-                      onPressed: () async {
-                        await _getImage(ImageSource.gallery);
-                        if (_image != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    InfoScreenUnauthorized(
-                                      photo: _image!,
-                                      // Pass the email parameter
-                                    )),
-                          );
-                        }
-                      },
-                      icon: Icon(
-                        Icons.photo_library,
-                        size: 35,
-                      ),
-                    ),
-                  )),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50, right: 20),
+            child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.black.withOpacity(0.7),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  toggleFlash();
+                },
+                icon: Icon(
+                  Icons.flash_on,
+                  size: 25,
+                  color: isFlashOn ? Colors.orange : Colors.grey[400],
+                ),
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                  padding: const EdgeInsets.only(bottom: 110),
-                  child: GestureDetector(
-                    onTap: () async {
-                      await _takePicture();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                InfoScreenUnauthorized(
-                                  photo: _image!,
-                                )),
-                      );
-                    },
-                    child: Container(
-                      height: 90,
-                      width: 90,
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4,
-                          )),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 125, left: 30),
+            child: Container(
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white.withOpacity(0.7),
+              ),
+              child: IconButton(
+                onPressed: () async {
+                  await _getImage(ImageSource.gallery);
+                  if (_image != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            InfoScreenUnauthorized(
+                          photo: _image!,
+                        ),
                       ),
-                    ),
-                  )),
+                    );
+                  }
+                },
+                icon: Icon(
+                  Icons.photo_library,
+                  size: 35,
+                ),
+              ),
             ),
-          ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 110),
+            child: GestureDetector(
+              onTap: () async {
+                await _takePicture();
+              },
+              child: Container(
+                height: 90,
+                width: 90,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 4,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ]),
     );

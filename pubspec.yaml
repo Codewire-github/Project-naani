@@ -23,6 +23,8 @@ dependencies:
   http: ^1.2.1
   pin_code_fields: ^8.0.1
   dio: ^5.4.3+1
+  url_launcher: ^6.2.6
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -33,5 +35,20 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/img/info_screen/
     - assets/img/signupscreen/
     - assets/img/exercise/
+    - assets/ML/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-light.ttf
+          weight: 300
+        - asset: fonts/Poppins-Regular.ttf
+        - asset: fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: fonts/Poppins-SemiBold.ttf
+          weight: 700
+        - asset: fonts/Poppins-Bold.ttf
+          weight: 800
