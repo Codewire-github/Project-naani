@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
               'Welcome to Naani!',
               style: TextStyle(fontSize: 24),
             ),
+            TextButton(
+                onPressed: () {
+                  Get.to(() => ExercisesScreen());
+                },
+                child: Text("Exercises")),
             GestureDetector(
               onTap: () => {Get.to(() => CameraScreenUnauthoried())},
               child: Container(

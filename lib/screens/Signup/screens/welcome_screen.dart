@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/Signup/screens/name_screen.dart';
+import 'package:naani/screens/signup/screens/email_verification.dart';
 import 'package:naani/screens/signup/widgets/custom_text_field.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -95,11 +96,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         borderRadius: BorderRadius.circular(22.5)),
                     child: TextButton(
                       onPressed: () {
-                        // isValid
-                        //     ? Get.to(() => EmailVerificationScreen(
-                        //           enteredEmailAddress: emailController.text,
-                        //         ))
-                        //     : () {};
+                        isValid
+                            ? Get.to(() => EmailVerificationScreen(
+                                  enteredEmailAddress: emailController.text,
+                                ))
+                            : () {};
                       },
                       child: const Text(
                         "Continue my journey",

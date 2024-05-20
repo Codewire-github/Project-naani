@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/screens/Signup/screens/welcome_screen.dart';
+import 'package:naani/screens/exercises/blinking/blink1.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
 void main() async {
