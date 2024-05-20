@@ -25,6 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Welcome to Naani!',
                   style: TextStyle(fontSize: 24),
                 ),
+                TextButton(
+                    onPressed: () {
+                      Get.to(() => ExercisesScreen());
+                    },
+                    child: Text(
+                      "Exercises",
+                      style: TextStyle(fontSize: 18),
+                    ))
               ],
             ),
             Padding(
