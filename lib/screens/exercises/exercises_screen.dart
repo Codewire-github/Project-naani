@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/screens/exercises/blinking/blink1.dart';
+import 'package:naani/screens/exercises/blinking/blink2.dart';
+import 'package:naani/screens/exercises/blinking/figureeight.dart';
+import 'package:naani/screens/exercises/blinking/neadandfar.dart';
 import 'package:naani/screens/exercises/blinking/palming.dart';
 
 class ExercisesScreen extends StatelessWidget {
@@ -15,7 +18,7 @@ class ExercisesScreen extends StatelessWidget {
           children: [
             TextButton(
                 onPressed: () {
-                  Get.to(() => Blink1());
+                  Get.to(() => Blink2());
                 },
                 child: Text("Blinking")),
             TextButton(
@@ -23,6 +26,16 @@ class ExercisesScreen extends StatelessWidget {
                   Get.to(() => Palming());
                 },
                 child: Text("Palming")),
+            TextButton(
+                onPressed: () {
+                  Get.to(() => NearAndFar());
+                },
+                child: Text("Near and far focus")),
+            TextButton(
+                onPressed: () {
+                  Get.to(() => FigureEight());
+                },
+                child: Text("Figure Eight")),
           ],
         ),
       ),
