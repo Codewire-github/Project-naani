@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
+import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -110,6 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                TextButton(
+                    onPressed: () {
+                      Get.to(() => ExercisesScreen());
+                    },
+                    child: Text(
+                      "Exercises",
+                      style: TextStyle(fontSize: 18),
+                    ))
               ],
             ),
             Padding(

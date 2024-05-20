@@ -6,6 +6,7 @@ Color primaryGreenColor = const Color.fromARGB(255, 79, 111, 82);
 Color secondaryGreenColor = const Color.fromARGB(255, 26, 77, 46);
 Color lightYellowColor = const Color.fromARGB(255, 246, 233, 178);
 Color darkYellowColor = const Color.fromARGB(255, 243, 202, 82);
+Color lightGreenColor = Color.fromARGB(255, 98, 219, 111);
 
 Color generateRandomDarkColor() {
   Random random = Random();

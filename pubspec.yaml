@@ -37,6 +37,7 @@ flutter:
   assets:
     - assets/img/info_screen/
     - assets/img/signupscreen/
+    - assets/img/exercise/
     - assets/ML/
 
   fonts:
