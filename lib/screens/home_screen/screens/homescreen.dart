@@ -14,41 +14,106 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String username = "Ishan";
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Stack(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Welcome to Naani!',
-                  style: TextStyle(fontSize: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border:
+                            Border.all(color: primaryGreenColor, width: 2.5),
+                      ),
+                      child: ClipOval(
+                        child: Image.network(
+                            "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"),
+                      ),
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome,",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      "$username",
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
                 Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(color: Colors.black),
-                  child: Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(
-                        color: lightGreenColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextButton(
-                        onPressed: () {
-                          Get.to(() => Blink1());
-                        },
-                        child: Text(
-                          "Exercises",
-                          style: TextStyle(
-                            fontSize: 18,
+                  height: screenHeight * 0.3,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      color: primaryGreenColor,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Improve Your Vision and Relax Your Eyes with Easy Daily Practices",
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Take a break and give your eyes the care they deserve. Start a quick and easy exercise routine to reduce strain and improve your vision.",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: TextButton(
+                          child: Text(
+                            "Begin Eye Workout",
+                            style: TextStyle(
+                                color: secondaryGreenColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
                           ),
-                        )),
+                          onPressed: () {
+                            Get.to(() => Blink1());
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                )
+                ),
               ],
             ),
             Padding(
