@@ -38,7 +38,7 @@ class Blink2 extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                   Image.asset(
-                    "assets/img/exercise/blink.gif",
+                    "assets/img/exercise/blinking.gif",
                     height: 340,
                   ),
                 ],
