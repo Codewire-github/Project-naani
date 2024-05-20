@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:naani/common/colors.dart';
+import 'package:naani/screens/exercises/blinking/blink1.dart';
 import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
 
@@ -25,14 +27,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Welcome to Naani!',
                   style: TextStyle(fontSize: 24),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Get.to(() => ExercisesScreen());
-                    },
-                    child: Text(
-                      "Exercises",
-                      style: TextStyle(fontSize: 18),
-                    ))
+                Container(
+                  height: 80,
+                  width: 150,
+                  decoration: BoxDecoration(color: Colors.black),
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                        color: lightGreenColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextButton(
+                        onPressed: () {
+                          Get.to(() => Blink1());
+                        },
+                        child: Text(
+                          "Exercises",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        )),
+                  ),
+                )
               ],
             ),
             Padding(

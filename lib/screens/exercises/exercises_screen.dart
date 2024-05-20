@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/screens/exercises/blinking/blink1.dart';
+import 'package:naani/screens/exercises/blinking/palming.dart';
 
 class ExercisesScreen extends StatelessWidget {
   const ExercisesScreen({super.key});
@@ -17,6 +18,11 @@ class ExercisesScreen extends StatelessWidget {
                   Get.to(() => Blink1());
                 },
                 child: Text("Blinking")),
+            TextButton(
+                onPressed: () {
+                  Get.to(() => Palming());
+                },
+                child: Text("Palming")),
           ],
         ),
       ),

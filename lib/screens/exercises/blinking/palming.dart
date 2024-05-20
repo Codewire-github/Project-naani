@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:naani/common/colors.dart';
-import 'package:naani/screens/exercises/exercises_screen.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:naani/common/colors.dart";
 
-class Blink2 extends StatelessWidget {
-  const Blink2({super.key});
+class Palming extends StatelessWidget {
+  const Palming({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class Blink2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Blink 15 times",
+                        "Palming",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.w600),
                       ),
@@ -30,15 +28,16 @@ class Blink2 extends StatelessWidget {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    "It will help your eyes stay wet by lubricating eyeballs with eyelids. ",
+                    "Start by rubbing your hands together to warm them up. Close your eyes and place the palm of each hand over the corresponding cheekbone. Cup your hand over each eye and breathe deeply for five minutes.",
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.grey[500],
                         fontWeight: FontWeight.w600),
                   ),
+                  SizedBox(height: 30),
                   Image.asset(
-                    "assets/img/exercise/blink.gif",
-                    height: 340,
+                    "assets/img/exercise/palming.gif",
                   ),
                 ],
               ),
