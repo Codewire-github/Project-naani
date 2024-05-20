@@ -11,6 +11,7 @@ class Blink1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(children: [
         Container(
           child: Padding(
@@ -22,7 +23,7 @@ class Blink1 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Blink Moments",
+                      "Let the exercise begin",
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
                     ),
@@ -30,12 +31,13 @@ class Blink1 extends StatelessWidget {
                 ),
                 SizedBox(height: 6),
                 Text(
-                  "Take a deep breathe, Take off your glasses (if so), just relax",
+                  "Take a deep breathe, Take off your glasses (if so), just relax.",
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.grey[500],
                       fontWeight: FontWeight.w600),
                 ),
+                SizedBox(height: 90),
                 Image.asset("assets/img/exercise/eyes.gif"),
               ],
             ),
