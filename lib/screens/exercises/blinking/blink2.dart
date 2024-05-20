@@ -3,9 +3,23 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/exercises/exercises_screen.dart';
+import 'package:naani/screens/exercises/widgets/progress_timer.dart';
 
-class Blink2 extends StatelessWidget {
+class Blink2 extends StatefulWidget {
   const Blink2({super.key});
+
+  @override
+  State<Blink2> createState() => _Blink2State();
+}
+
+class _Blink2State extends State<Blink2> {
+  bool isCompleted = false;
+
+  void updateIsCompleted() {
+    setState(() {
+      isCompleted = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +54,10 @@ class Blink2 extends StatelessWidget {
                     "assets/img/exercise/blink.gif",
                     height: 340,
                   ),
+                  ProgressTimer(
+                      countdownDuration: Duration(seconds: 5),
+                      timerDuration: Duration(seconds: 15),
+                      onTimerComplete: updateIsCompleted)
                 ],
               ),
             ),
@@ -52,7 +70,7 @@ class Blink2 extends StatelessWidget {
                 height: 60,
                 width: 150,
                 decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: isCompleted ? Colors.black : Colors.grey[600],
                     borderRadius: BorderRadius.circular(8)),
                 child: Container(
                   child: Padding(
@@ -64,18 +82,23 @@ class Blink2 extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 30),
                           child: Text(
                             "Finish",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                         Container(
                           height: 45,
                           width: 45,
                           decoration: BoxDecoration(
-                              color: lightGreenColor,
+                              color: isCompleted
+                                  ? lightGreenColor
+                                  : Colors.grey[700],
                               borderRadius: BorderRadius.circular(8)),
                           child: IconButton(
                               onPressed: () {
-                                Get.back();
+                                isCompleted ? Get.back() : () {};
                               },
                               icon: Icon(
                                 Icons.done,

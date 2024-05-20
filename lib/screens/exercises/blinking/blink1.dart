@@ -4,6 +4,7 @@ import "package:get/get.dart";
 import "package:naani/common/colors.dart";
 import "package:naani/screens/exercises/blinking/blink2.dart";
 import "package:naani/screens/exercises/exercises_screen.dart";
+import "package:naani/screens/exercises/widgets/progress_timer.dart";
 
 class Blink1 extends StatelessWidget {
   const Blink1({super.key});
