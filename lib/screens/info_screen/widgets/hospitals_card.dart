@@ -37,7 +37,7 @@ class HospitalCard extends StatelessWidget {
                   Text(
                     name,
                     style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.w600,
                         fontFamily: "Poppins"),
                     overflow: TextOverflow.ellipsis,
@@ -49,7 +49,7 @@ class HospitalCard extends StatelessWidget {
                   Text(
                     address,
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[500],
                         fontFamily: "Poppins"),
@@ -57,7 +57,7 @@ class HospitalCard extends StatelessWidget {
                   Text(
                     "Phone no: $phone",
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         fontFamily: "Poppins"),
                   )
