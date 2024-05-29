@@ -6,7 +6,6 @@ import 'package:naani/common/colors.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
-import 'package:naani/screens/Signup/screens/email_screen.dart';
 import 'package:naani/screens/Signup/screens/location_screen.dart';
 
 class HeightWeightScreen extends StatefulWidget {

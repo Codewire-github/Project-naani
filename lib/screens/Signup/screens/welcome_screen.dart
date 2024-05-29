@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/Signup/screens/name_screen.dart';
@@ -37,22 +38,39 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: lightGreenColor,
       extendBody: true,
       body: Column(
         children: [
           Container(
-            height: isKeyboardOn
-                ? MediaQuery.sizeOf(context).height * 0.15
-                : MediaQuery.sizeOf(context).height * 0.54,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 122, 186, 120),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(45),
-                    bottomRight: Radius.circular(45))),
-            //child: Image.asset(""),
+            color: Colors.white,
+            child: Container(
+                height: MediaQuery.sizeOf(context).height * 0.54,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: lightGreenColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(45),
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+                  child: Column(
+                    children: [
+                      //Image.asset(""), / LOGO
+                      Text(
+                        "A tool for cataract detection",
+                        style: TextStyle(fontSize: 25, color: Colors.black),
+                      )
+                    ],
+                  ),
+                )),
           ),
           Container(
+            height: MediaQuery.sizeOf(context).height * (1 - 0.54),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topRight: Radius.circular(45))),
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
@@ -61,7 +79,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   "Welcome to Naani!",
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
-                      fontSize: 28,
+                      fontSize: 32,
                       letterSpacing: 0.2),
                 ),
                 SizedBox(
@@ -70,59 +88,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Text(
                   "We're here to support you!",
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[700]),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: screenHeight * 0.015,
-                ),
-                CustomEmailField(
-                  isEmail: true,
-                  texteditingController: emailController,
-                  errorText: "It must contain '@' & end with '.com'",
-                  hintText: "example@gmail.com",
-                  onIsValidChanged: onFieldChanged,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.0125,
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: isValid ? primaryGreenColor : Colors.grey[400],
-                        borderRadius: BorderRadius.circular(22.5)),
-                    child: TextButton(
-                      onPressed: () {
-                        isValid
-                            ? Get.to(() => EmailVerificationScreen(
-                                  enteredEmailAddress: emailController.text,
-                                ))
-                            : () {};
-                      },
-                      child: const Text(
-                        "Continue my journey",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                Text(
-                  "New to Naani?",
-                  style: TextStyle(
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.0125,
                 ),
                 Container(
                     width: screenWidth * 0.55,
@@ -132,7 +104,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         borderRadius: BorderRadius.circular(22.5)),
                     child: TextButton(
                       child: Text(
-                        "Start a new journey",
+                        "Let's get started",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,

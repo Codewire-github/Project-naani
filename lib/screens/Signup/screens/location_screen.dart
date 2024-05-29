@@ -5,7 +5,7 @@ import 'package:naani/common/colors.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
-import 'package:naani/screens/Signup/screens/email_screen.dart';
+import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
 class LocationSelectionScreen extends StatefulWidget {
   const LocationSelectionScreen({super.key});
@@ -183,7 +183,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
               child: CustomLargeButton(
                   label: "Continue",
                   onPressed: () {
-                    Get.to(() => EmailScreen());
+                    Get.to(() => HomeScreen());
                   }),
             ),
           )
