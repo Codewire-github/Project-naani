@@ -58,14 +58,14 @@ class ExercisesScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => Palming());
                   },
-                  time: 30),
+                  time: 20),
               const SizedBox(height: 10),
               ExerciseTile(
                   label: "Near and far focus",
                   onPressed: () {
                     Get.to(() => NearAndFar());
                   },
-                  time: 30),
+                  time: 45),
               const SizedBox(height: 10),
               ExerciseTile(
                   label: "Figure Eight",
@@ -79,7 +79,7 @@ class ExercisesScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => PencilPushUp());
                   },
-                  time: 60),
+                  time: 40),
               const SizedBox(height: 10),
               ExerciseTile(
                   label: "Zooming",

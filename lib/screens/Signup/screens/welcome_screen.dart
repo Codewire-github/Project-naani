@@ -3,9 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
 import 'package:naani/screens/Signup/screens/name_screen.dart';
-import 'package:naani/screens/signup/screens/email_verification.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
-import 'package:naani/screens/signup/widgets/custom_text_field.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -15,14 +13,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  TextEditingController emailController = TextEditingController();
   bool isValid = false;
   @override
-  void dispose() {
-    super.dispose();
-    emailController.dispose();
-  }
-
   void onFieldChanged(bool val) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
@@ -49,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: lightGreenColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(45),
                     )),
                 child: Padding(

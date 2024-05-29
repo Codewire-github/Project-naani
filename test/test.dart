@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
 void main() async {

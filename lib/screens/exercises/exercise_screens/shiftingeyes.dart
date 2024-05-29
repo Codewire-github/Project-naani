@@ -1,9 +1,22 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:naani/common/colors.dart";
+import "package:naani/screens/exercises/widgets/progress_timer.dart";
 
-class ShiftingEyes extends StatelessWidget {
+class ShiftingEyes extends StatefulWidget {
   const ShiftingEyes({super.key});
+
+  @override
+  State<ShiftingEyes> createState() => _ShiftingEyesState();
+}
+
+class _ShiftingEyesState extends State<ShiftingEyes> {
+  bool isCompleted = false;
+  void updateIsCompleted() {
+    setState(() {
+      isCompleted = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +54,11 @@ class ShiftingEyes extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: 340,
                   ),
+                  SizedBox(height: 20),
+                  ProgressTimer(
+                      countdownDuration: Duration(seconds: 10),
+                      timerDuration: Duration(seconds: 40),
+                      onTimerComplete: updateIsCompleted)
                 ],
               ),
             ),
@@ -53,7 +71,7 @@ class ShiftingEyes extends StatelessWidget {
                 height: 60,
                 width: 150,
                 decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: isCompleted ? Colors.black : Colors.grey[600],
                     borderRadius: BorderRadius.circular(8)),
                 child: Container(
                   child: Padding(
@@ -72,11 +90,13 @@ class ShiftingEyes extends StatelessWidget {
                           height: 45,
                           width: 45,
                           decoration: BoxDecoration(
-                              color: lightGreenColor,
+                              color: isCompleted
+                                  ? lightGreenColor
+                                  : Colors.grey[700],
                               borderRadius: BorderRadius.circular(8)),
                           child: IconButton(
                               onPressed: () {
-                                Get.back();
+                                isCompleted ? Get.back() : () {};
                               },
                               icon: Icon(
                                 Icons.done,

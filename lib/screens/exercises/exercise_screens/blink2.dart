@@ -44,7 +44,7 @@ class _Blink2State extends State<Blink2> {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    "Blink your eyes very fast for 15 seconds.Gently allow your eyes to close, settle, and soften. Notice how the eyes feel. Try to repeat once at least every hour.It will help your eyes stay wet by lubricating eyeballs with eyelids. ",
+                    "Blink your eyes very fast for 15 seconds. Gently allow your eyes to close, settle, and soften. Notice how the eyes feel. Try to repeat once at least every hour. It will help your eyes stay wet by lubricating eyeballs with eyelids. ",
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.grey[500],
@@ -55,8 +55,9 @@ class _Blink2State extends State<Blink2> {
                     "assets/img/exercise/blinking.gif",
                     height: 340,
                   ),
+                  SizedBox(height: 20),
                   ProgressTimer(
-                      countdownDuration: Duration(seconds: 5),
+                      countdownDuration: Duration(seconds: 10),
                       timerDuration: Duration(seconds: 15),
                       onTimerComplete: updateIsCompleted)
                 ],

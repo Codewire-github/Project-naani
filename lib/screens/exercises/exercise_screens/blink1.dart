@@ -40,6 +40,14 @@ class Blink1 extends StatelessWidget {
                 ),
                 SizedBox(height: 90),
                 Image.asset("assets/img/exercise/eyes.gif"),
+                SizedBox(height: 50),
+                Text(
+                  "You'll get 10 seconds to read the simple steps of the exercises.",
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.grey[500],
+                      fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
