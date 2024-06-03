@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naani/screens/Signup/screens/welcome_screen.dart';
+import 'package:naani/screens/exercises/exercises_screen.dart';
+import 'package:naani/screens/home_screen/screens/chat_screen.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
 void main() async {
@@ -28,7 +31,7 @@ class _AppState extends State<App> {
             : null,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

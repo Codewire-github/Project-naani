@@ -1,23 +1,13 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:naani/src/ML/ml.dart';
+import 'package:naani/common/widgets/%20alert_boxes.dart';
+
 import 'package:naani/common/widgets/information_container.dart';
-
-Color generateRandomLightColor() {
-  Random random = Random();
-
-  // Generate random values for red, green, and blue
-  int red = random.nextInt(96) + 160;
-  int green = random.nextInt(96) + 160;
-  int blue = random.nextInt(96) + 160;
-
-  return Color.fromARGB(160, red, green, blue);
-}
 
 class InfoScreenUnauthorized extends StatefulWidget {
   final File photo;
@@ -32,28 +22,12 @@ class InfoScreenUnauthorized extends StatefulWidget {
 }
 
 class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
-  late ObjectDetector _objectDetector;
-  final DetectionMode _mode = DetectionMode.single;
-  bool _canProcess = false;
-  bool _isBusy = false;
   String _result = '';
   String description = "";
-  Map<String, dynamic> animalExtraInfo = {};
   List<String> imageUrls = [];
   File? image;
-
-  int noOfObjectsFound = 0;
-
-  final _options = [
-    'lite-model_aiy_vision_classifier_plants_V1_3.tflite',
-    'animals.tflite',
-    'lite-model_aiy_vision_classifier_food_V1_1.tflite',
-    'technology.tflite',
-    'furniture.tflite',
-    'insects.tflite',
-    'lite-model_aiy_vision_classifier_birds_V1_3.tflite',
-    'mobilenet.tflite',
-  ];
+  String? _downloadUrl;
+  String errorText = '';
 
   @override
   void initState() {
@@ -63,14 +37,11 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
 
   @override
   void dispose() {
-    _canProcess = false;
-    _objectDetector.close();
     super.dispose();
   }
 
   Future<void> firsThingsToDo() async {
-    await _initializeLabeler();
-    await _processImagev2(widget.photo);
+    await _uploadImage();
   }
 
   @override
@@ -118,25 +89,25 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
                 ),
               )),
           if (_result.isNotEmpty) ...{
-            const Align(
+            Align(
                 alignment: Alignment.bottomCenter,
                 child: InformationContainer(
-                  title: 'Possible cataract detected.',
-                  symptoms: [
+                  title: _result,
+                  symptoms: const [
                     'Blurry vision is a common symptom of cataracts.',
                     'Faded colors or decreased color perception may occur.',
                     'Glare sensitivity, especially in bright light or while driving at night, can be a sign of cataracts.',
                     'Double vision in one eye may occur in some cases.',
                     'Difficulty seeing clearly at night or in low-light conditions may indicate cataracts.',
                   ],
-                  causes: [
+                  causes: const [
                     'Aging is the most common cause of cataracts, as the proteins in the eye lens break down over time.',
                     'Diabetes can increase the risk of developing cataracts.',
                     'Eye injuries or trauma, such as blunt force impact, can lead to cataracts.',
                     'Prolonged sun exposure without UV protection can contribute to cataract formation.',
                     'Smoking has been linked to a higher risk of cataracts.',
                   ],
-                  preventions: [
+                  preventions: const [
                     'Schedule regular eye exams to detect cataracts early and monitor eye health.',
                     'Wear sunglasses that block UV rays to protect the eyes from sun damage.',
                     'Quit smoking to reduce the risk of cataracts and other eye diseases.',
@@ -145,129 +116,116 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
                   ],
                   buttonText: 'Check eye care near you',
                 )),
+          } else if (errorText != '') ...{
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 100),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            errorText,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Poppins",
+                            ),
+                          )
+                        ])))
+          } else ...{
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 100),
+                    child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 70,
+                            height: 70,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 4,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color.fromARGB(255, 63, 3, 202)),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            "Analyzing your image",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Poppins",
+                            ),
+                          )
+                        ])))
           }
-
-          // } else ...{
-          //   Align(
-          //       alignment: Alignment.bottomCenter,
-          //       child: Container(
-          //           margin: const EdgeInsets.only(bottom: 100),
-          //           child: const Column(
-          //               mainAxisAlignment: MainAxisAlignment.end,
-          //               children: [
-          //                 SizedBox(
-          //                   width: 70,
-          //                   height: 70,
-          //                   child: CircularProgressIndicator(
-          //                     strokeWidth: 4,
-          //                     valueColor: AlwaysStoppedAnimation<Color>(
-          //                         Color.fromARGB(255, 63, 3, 202)),
-          //                   ),
-          //                 ),
-          //                 SizedBox(height: 20),
-          //                 Text(
-          //                   "Analyzing your image",
-          //                   style: TextStyle(
-          //                     fontSize: 18,
-          //                     fontWeight: FontWeight.w400,
-          //                     fontFamily: "Poppins",
-          //                   ),
-          //                 )
-          //               ]))),
-          // }
-          // }
         ],
       ),
     );
   }
 
-  Future<void> _initializeLabeler() async {
-    final path = 'assets/ML/mobilenet.tflite';
-    print("Model path: $path");
-    final modelPath = await getModelPath(path);
-    final options = LocalObjectDetectorOptions(
-      mode: _mode,
-      modelPath: modelPath,
-      classifyObjects: true,
-      multipleObjects: true,
-    );
-    _objectDetector = ObjectDetector(options: options);
-    _canProcess = true;
-  }
+  Future<void> _uploadImage() async {
+    try {
+      final uri = Uri.parse('https://api.cloudinary.com/v1_1/dgkgnig49/upload');
+      final request = http.MultipartRequest('POST', uri)
+        ..fields['upload_preset'] = 'h3fuctn1'
+        ..files
+            .add(await http.MultipartFile.fromPath('file', widget.photo.path));
 
-  Future<void> _processImagev2(File imageSelected) async {
-    if (!_canProcess) return;
-    if (_isBusy) return;
-    _isBusy = true;
-    setState(() {
-      _result = '';
-    });
-    final selectedImage = InputImage.fromFile(imageSelected);
-    final objects = await _objectDetector.processImage(selectedImage);
-    setState(() {
-      noOfObjectsFound = objects.length;
-    });
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        final responseString = await response.stream.bytesToString();
+        final data = jsonDecode(responseString);
+        setState(() {
+          _downloadUrl = data['secure_url'] ?? data['url'];
+          print(_downloadUrl);
+        });
 
-    String text = 'Objects found: ${objects.length}\n\n';
-    for (final object in objects) {
-      text += '${object.labels.map((e) => e.text).join(", ")}\n\n';
-    }
-    print("I am running ===============================");
-    print(text);
-    setState(() {
-      _result = text;
-    });
+        // After uploading, send the POST request
+        predictImage(_downloadUrl);
+      } else {
+        print('Failed to upload image. Status code: ${response.statusCode}');
+        setState(() {
+          errorText = "Failed to upload image. Try again";
+        });
+        showErrorAlertBox(context, "Failed to upload image");
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+      setState(() {
+        errorText = "Failed to upload image. Try again";
+      });
 
-    _isBusy = false;
-    if (mounted) {
-      setState(() {});
+      // Handle error
+      showErrorAlertBox(context, "Failed to upload image");
     }
   }
 
-  // Future<void> fetchDescription() async {
-  //   final response = await http.get(
-  //     Uri.parse('https://en.wikipedia.org/api/rest_v1/page/summary/$_result'),
-  //   );
+  Future<void> predictImage(String? imageURL) async {
+    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.101.6:8001"));
+    dynamic data = {"image_uri": imageURL};
 
-  //   if (response.statusCode == 200) {
-  //     Map<String, dynamic> data = json.decode(response.body);
-  //     setState(() {
-  //       if (data['extract'] != null) {
-  //         description = data['extract'];
-  //       } else {
-  //         description = 'No description available';
-  //       }
-  //     });
-  //   } else {
-  //     setState(() {
-  //       description = 'Failed to fetch data.';
-  //     });
-  //   }
-  // }
-
-  // Future<void> fetchImage() async {
-  //   try {
-  //     const String apiKey =
-  //         'VcbYu53HEsdckdbTQRQRrWR5AXt3DVpKP5cMJAkkdBW63iUkpfIT7gQE';
-  //     final responseI = await http.get(
-  //       Uri.parse('https://api.pexels.com/v1/search?query=$_result&per_page=5'),
-  //       headers: {'Authorization': apiKey},
-  //     );
-  //     if (responseI.statusCode == 200) {
-  //       Map<String, dynamic> data = json.decode(responseI.body);
-  //       List<dynamic> photos = data['photos'];
-
-  //       for (var photo in photos) {
-  //         String imageUrl = photo['src']['medium'];
-  //         setState(() {
-  //           imageUrls.add(imageUrl);
-  //         });
-  //       }
-  //     } else {
-  //       print('Failed to fetch images');
-  //     }
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+    try {
+      Response response = await dio.post('/predict', data: data);
+      if (response.statusCode == 200) {
+        print("Result: ${response.data}");
+        setState(() {
+          _result = response.data['prediction'];
+        });
+      } else {
+        debugPrint("Error predicting image: ${response.statusCode}");
+        setState(() {
+          errorText = "Failed to predict the image. Try again";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        errorText = "Failed to predict the image. Try again";
+      });
+      debugPrint("Failed to predict the image: $e");
+    }
+  }
 }

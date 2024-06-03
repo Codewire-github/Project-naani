@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,8 @@ import 'package:naani/screens/exercises/exercise_screens/blink1.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/screens/exercises/exercises_screen.dart';
 import 'package:naani/screens/home_screen/screens/camera_screen.dart';
+import 'package:naani/screens/home_screen/screens/chat_screen.dart';
+import 'package:naani/screens/home_screen/tips_facts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -60,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,7 +84,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  height: screenHeight * 0.3,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 107, 138, 122),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "💡 Tips for your eye:",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        eyeCareTips[Random().nextInt(eyeCareTips.length)],
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 166, 123, 91),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "💡 Facts about eye:",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        eyeCareFacts[Random().nextInt(eyeCareFacts.length)],
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   decoration: BoxDecoration(
@@ -123,6 +179,55 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
                             Get.to(() => Blink1());
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 218, 211, 190),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "AI Health Assistant",
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Interact with your AI health assistant for personalized health advice.",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: TextButton(
+                          child: Text(
+                            "Open Chat",
+                            style: TextStyle(
+                                color: secondaryGreenColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          onPressed: () {
+                            Get.to(() => ChatScreen());
                           },
                         ),
                       )

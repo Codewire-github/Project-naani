@@ -46,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 : MediaQuery.sizeOf(context).height * 0.54,
             width: double.infinity,
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 122, 186, 120),
+                color: primaryGreenColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(45),
                     bottomRight: Radius.circular(45))),
