@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
+import 'package:naani/screens/exercises/widgets/progress_timer.dart';
 
-class NearAndFar extends StatelessWidget {
+class NearAndFar extends StatefulWidget {
   const NearAndFar({super.key});
+
+  @override
+  State<NearAndFar> createState() => _NearAndFarState();
+}
+
+class _NearAndFarState extends State<NearAndFar> {
+  bool isCompleted = false;
+
+  void updateIsCompleted() {
+    setState(() {
+      isCompleted = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +55,11 @@ class NearAndFar extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: 250,
                   ),
+                  SizedBox(height: 20),
+                  ProgressTimer(
+                      countdownDuration: Duration(seconds: 10),
+                      timerDuration: Duration(seconds: 45),
+                      onTimerComplete: updateIsCompleted)
                 ],
               ),
             ),
@@ -53,7 +72,7 @@ class NearAndFar extends StatelessWidget {
                 height: 60,
                 width: 150,
                 decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: isCompleted ? Colors.black : Colors.grey[600],
                     borderRadius: BorderRadius.circular(8)),
                 child: Container(
                   child: Padding(
@@ -72,11 +91,13 @@ class NearAndFar extends StatelessWidget {
                           height: 45,
                           width: 45,
                           decoration: BoxDecoration(
-                              color: lightGreenColor,
+                              color: isCompleted
+                                  ? lightGreenColor
+                                  : Colors.grey[700],
                               borderRadius: BorderRadius.circular(8)),
                           child: IconButton(
                               onPressed: () {
-                                Get.back();
+                                isCompleted ? Get.back() : () {};
                               },
                               icon: Icon(
                                 Icons.done,

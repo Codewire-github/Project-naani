@@ -42,7 +42,7 @@ class ExerciseTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset("assets/img/exercise/eye.png"))),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextButton(
                     onPressed: onPressed,
