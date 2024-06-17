@@ -40,19 +40,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: MediaQuery.sizeOf(context).height * 0.54,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: lightGreenColor,
+                    color: Colors.green[300],
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(45),
                     )),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //Image.asset(""), / LOGO
-                      Text(
-                        "A tool for cataract detection",
-                        style: TextStyle(fontSize: 25, color: Colors.black),
-                      )
+                      Image.asset(
+                        "assets/img/welcome_screen/welcome.png",
+                        width: MediaQuery.sizeOf(context).width * 0.8,
+                      ),
                     ],
                   ),
                 )),
@@ -66,7 +66,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
-                const SizedBox(height: 10),
+                const SizedBox(height: 50),
                 const Text(
                   "Welcome to Naani!",
                   style: TextStyle(
@@ -75,30 +75,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       letterSpacing: 0.2),
                 ),
                 SizedBox(
+                  height: screenHeight * 0.006,
+                ),
+                Text(
+                  "A tool for cataract detection",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey[400],
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
                   height: screenHeight * 0.008,
                 ),
                 Text(
                   "We're here to support you!",
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[700]),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: screenHeight * 0.015,
+                  height: screenHeight * 0.02,
                 ),
                 Container(
                     width: screenWidth * 0.55,
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 246, 233, 178),
+                        color: primaryGreenColor,
                         borderRadius: BorderRadius.circular(22.5)),
                     child: TextButton(
                       child: Text(
                         "Let's get started",
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w500),
                       ),

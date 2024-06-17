@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/services.dart';
@@ -21,6 +22,26 @@ class _HeightWeightScreenState extends State<HeightWeightScreen> {
 
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    weightController.addListener(_onTextChanged);
+    heightController.addListener(_onTextChanged);
+  }
+
+  @override
+  void dispose() {
+    weightController.removeListener(_onTextChanged);
+    heightController.removeListener(_onTextChanged);
+    weightController.dispose();
+    heightController.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    setState(() {}); // This will rebuild the widget when the text changes
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,17 +234,26 @@ class _HeightWeightScreenState extends State<HeightWeightScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
           CustomLargeButton(
               label: "Continue",
+              buttonColor: heightController.text.isNotEmpty &&
+                      weightController.text.isNotEmpty
+                  ? primaryGreenColor
+                  : Colors.grey,
               onPressed: () async {
-                await storage.write(
-                    key: heightLS,
-                    value: "${heightController.text} $heightOption");
-                await storage.write(
-                    key: weightLS,
-                    value: "${weightController.text} $weightOption");
-                Get.to(() => LocationSelectionScreen());
+                if (heightController.text.isNotEmpty &&
+                    weightController.text.isNotEmpty) {
+                  await storage.write(
+                      key: heightLS,
+                      value: "${heightController.text} $heightOption");
+                  await storage.write(
+                      key: weightLS,
+                      value: "${weightController.text} $weightOption");
+                  Get.to(() => LocationSelectionScreen());
+                } else {
+                  () {};
+                }
               })
         ],
       ),

@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:naani/common/colors.dart';
+import 'package:naani/screens/Signup/screens/welcome_screen.dart';
 import 'package:naani/screens/exercises/exercise_screens/blink1.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/screens/exercises/exercises_screen.dart';
@@ -49,17 +51,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border:
-                            Border.all(color: primaryGreenColor, width: 2.5),
-                      ),
-                      child: ClipOval(
-                        child: Image.network(
-                            "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"),
+                    GestureDetector(
+                      onTap: () {
+                        showLogoutDialog(context);
+                      },
+                      child: Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border:
+                              Border.all(color: primaryGreenColor, width: 2.5),
+                        ),
+                        child: ClipOval(
+                          child: Image.network(
+                              "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"),
+                        ),
                       ),
                     ),
                   ],
@@ -104,33 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Text(
                         eyeCareTips[Random().nextInt(eyeCareTips.length)],
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 166, 123, 91),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "💡 Facts about eye:",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        eyeCareFacts[Random().nextInt(eyeCareFacts.length)],
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ],
@@ -285,6 +265,35 @@ class _HomeScreenState extends State<HomeScreen> {
       //   },
       //   child: Icon(Icons.add),
       // ),
+    );
+  }
+
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                // Handle the logout logic here
+                await storage.deleteAll();
+                Navigator.of(context).pop(); // Dismiss the dialog
+                Get.offAll(() => WelcomeScreen());
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

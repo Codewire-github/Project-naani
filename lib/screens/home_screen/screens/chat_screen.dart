@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart' as get_nav;
 import 'package:naani/common/colors.dart';
+import 'package:naani/screens/home_screen/tips_facts.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isLoading = false;
 
   Future<void> _getResponse(String prompt) async {
-    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.101.6:8000"));
+    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.110.155:8000"));
     dio.options.headers['Content-Type'] = 'application/json';
     setState(() {
       _isLoading = true;
@@ -105,9 +107,49 @@ class _ChatScreenState extends State<ChatScreen> {
                                 const EdgeInsets.fromLTRB(16.0, 16, 16, 100),
                             child: _response.isNotEmpty
                                 ? Html(data: _response)
-                                : Text(
-                                    'Chat messages will appear here',
-                                    style: TextStyle(fontSize: 15.0),
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Chat messages will appear here',
+                                        style: TextStyle(fontSize: 15.0),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Container(
+                                        width: double.infinity,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 15),
+                                        decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 212, 178, 151),
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "💡 Facts about eye:",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              eyeCareFacts[Random().nextInt(
+                                                  eyeCareFacts.length)],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   )),
                       ),
                     ),
