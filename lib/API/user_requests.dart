@@ -121,3 +121,25 @@ class UserApiService {
     }
   }
 }
+
+class LlamaServices {
+  Dio dio = Dio(BaseOptions(baseUrl: "http://localhost:8000"));
+
+  Future<List<dynamic>> getChatResponse(String prompt) async {
+    dio.options.headers['Content-Type'] = 'application/json';
+    dynamic data = {"model": "llama3", "prompt": prompt};
+    try {
+      Response response = await dio.post(recyclingVideosURL, data: data);
+      if (response.statusCode == 200) {
+        debugPrint("${response.data}");
+        return response.data;
+      } else {
+        print("Hello");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
+  }
+}

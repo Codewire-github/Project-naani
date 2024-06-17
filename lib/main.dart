@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:naani/screens/Signup/screens/location_screen.dart';
+import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/screens/Signup/screens/welcome_screen.dart';
 import 'package:naani/screens/home_screen/screens/homescreen.dart';
 
@@ -21,6 +21,31 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  Widget? _homeScreen;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeHomeScreen();
+  }
+
+  Future<void> _initializeHomeScreen() async {
+    String? username = await storage.read(key: nameLS);
+    String? location = await storage.read(key: locationLS);
+
+    if ((username != null && location != null) &&
+        username.isNotEmpty &&
+        location.isNotEmpty) {
+      setState(() {
+        _homeScreen = const HomeScreen();
+      });
+    } else {
+      setState(() {
+        _homeScreen = const WelcomeScreen();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -30,7 +55,7 @@ class _AppState extends State<App> {
             : null,
       ),
       debugShowCheckedModeBanner: false,
-      home: const WelcomeScreen(),
+      home: _homeScreen,
     );
   }
 }

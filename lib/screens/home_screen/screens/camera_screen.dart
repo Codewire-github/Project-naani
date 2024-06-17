@@ -18,7 +18,7 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
 
   File? _image;
   bool isFlashOn = false;
-  final double _defaultZoomLevel = 1.2;
+  final double _defaultZoomLevel = 1.4;
 
   @override
   void initState() {
