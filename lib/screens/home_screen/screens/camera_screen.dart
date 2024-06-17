@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,9 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
+    _initializeCamera().then((_) {
+      showTutorialOverlay(context);
+    });
     setState(() {
       _image = null;
     });
@@ -82,6 +85,7 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
         await _controller!.initialize();
         if (!mounted) return;
         await _controller!.setZoomLevel(_defaultZoomLevel);
+
         setState(() {});
       } on CameraException catch (e) {
         debugPrint("camera error $e");
@@ -241,5 +245,98 @@ class _CameraScreenUnauthoriedState extends State<CameraScreenUnauthoried> {
         ),
       ]),
     );
+  }
+
+  void showTutorialOverlay(BuildContext context) {
+    TextStyle messageTitleStyle = const TextStyle(
+      fontSize: 26,
+      fontWeight: FontWeight.w800,
+    );
+    TextStyle messageTextStyle =
+        const TextStyle(fontSize: 15.5, fontWeight: FontWeight.w500);
+    TextStyle buttonTextStyle = const TextStyle(
+        color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16);
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: const EdgeInsets.all(25),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Image.asset(
+                          "assets/img/info_screen/reflection.avif",
+                          width: 192,
+                          height: 108,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text(
+                        "Some things to follow",
+                        style: messageTitleStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        "Position yourself in a brightly lit area to minimize glare, reduce reflection and ensure the camera captures a clear, eye-catching expression.",
+                        style: messageTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 12, 12, 12),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Colors.black),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Continue",
+                                      style: buttonTextStyle,
+                                    ),
+                                    const SizedBox(width: 20),
+                                    Icon(
+                                      Icons.done_rounded,
+                                      color: Colors.white,
+                                      size: 25,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

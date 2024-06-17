@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:naani/common/colors.dart';
 import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
@@ -18,9 +19,20 @@ class _NameScreenState extends State<NameScreen> {
   TextEditingController _textController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _textController.addListener(_onTextChanged);
+  }
+
+  @override
   void dispose() {
+    _textController.removeListener(_onTextChanged);
     _textController.dispose();
     super.dispose();
+  }
+
+  void _onTextChanged() {
+    setState(() {}); // This will rebuild the widget when the text changes
   }
 
   @override
@@ -76,10 +88,18 @@ class _NameScreenState extends State<NameScreen> {
             padding: const EdgeInsets.only(bottom: 35),
             child: CustomLargeButton(
                 label: "Continue",
+                buttonColor: _textController.text.isEmpty
+                    ? Colors.grey
+                    : primaryGreenColor,
                 onPressed: () async {
-                  await storage.write(key: nameLS, value: _textController.text);
+                  if (_textController.text.isNotEmpty) {
+                    await storage.write(
+                        key: nameLS, value: _textController.text);
 
-                  Get.to(() => HeightWeightScreen());
+                    Get.to(() => HeightWeightScreen());
+                  } else {
+                    () {};
+                  }
                 }),
           ),
         )

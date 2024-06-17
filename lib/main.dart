@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +54,15 @@ class _AppState extends State<App> {
             : null,
       ),
       debugShowCheckedModeBanner: false,
-      home: _homeScreen,
+      home: _homeScreen ?? _buildLoadingScreen(),
+    );
+  }
+
+  Widget _buildLoadingScreen() {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

@@ -38,6 +38,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/info_screen/
+    - assets/img/welcome_screen/
     - assets/img/signupscreen/
     - assets/img/exercise/
     - assets/ML/

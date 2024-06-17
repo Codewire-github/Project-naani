@@ -182,8 +182,12 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
               padding: const EdgeInsets.only(bottom: 30.0),
               child: CustomLargeButton(
                   label: "Continue",
-                  onPressed: () {
-                    Get.to(() => HomeScreen());
+                  onPressed: () async {
+                    await storage.write(key: locationLS, value: _selectedCity);
+                    Get.offAll(() => HomeScreen());
+                    print("$_selectedCity");
+                    String? location = await storage.read(key: locationLS);
+                    print("Selected city: $location");
                   }),
             ),
           )
