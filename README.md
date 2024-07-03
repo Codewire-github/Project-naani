@@ -39,7 +39,7 @@ Naani includes a section dedicated to guided eye exercises, presented in an enga
 
 ### Prerequisites
 - [Flutter](https://flutter.dev/docs/get-started/install) installed on your machine
-- Ollama installed on your machine (Llama3 model)
+- [Ollama](https://ollama.com/) installed on your machine (Llama3 model)
 - A device or emulator to run the app
 - Make your own server API for image classfication and llama3
 
