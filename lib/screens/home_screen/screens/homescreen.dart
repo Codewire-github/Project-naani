@@ -139,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         "Take a break and give your eyes the care they deserve. Start a quick and easy exercise routine to reduce strain and improve your vision.",
                         style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.justify,
                       ),
                       const SizedBox(
                         height: 20,
@@ -154,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Begin Eye Workout",
                             style: TextStyle(
                                 color: secondaryGreenColor,
-                                fontSize: 14,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w500),
                           ),
                           onPressed: () {
