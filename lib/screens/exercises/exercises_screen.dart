@@ -40,7 +40,10 @@ class ExercisesScreen extends StatelessWidget {
                   SizedBox(width: 30),
                   Text(
                     "Vision Workouts",
-                    style: TextStyle(color: Colors.white, fontSize: 28),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700),
                   ),
                 ],
               ),

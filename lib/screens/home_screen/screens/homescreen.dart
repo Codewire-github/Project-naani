@@ -176,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "AI Health Assistant",
+                        "Eye care Chatbot",
                         style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.w800,
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 10,
                       ),
                       Text(
-                        "Interact with your AI health assistant for personalized health advice.",
+                        "Interact with your Eye care Chatbot for personalized health advice.",
                         style: TextStyle(color: Colors.black),
                       ),
                       const SizedBox(

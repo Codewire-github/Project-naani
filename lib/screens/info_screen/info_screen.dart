@@ -58,8 +58,9 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
             height: MediaQuery.sizeOf(context).height * 0.4,
             width: double.infinity,
             decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-            ),
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(40)),
+                color: Colors.black),
             child: ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(bottom: Radius.circular(40)),
@@ -262,9 +263,9 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
 
   Future<void> _uploadImage() async {
     try {
-      final uri = Uri.parse('https://api.cloudinary.com/v1_1/dgkgnig49/upload');
+      final uri = Uri.parse('https://api.cloudinary.com/v1_1/your_id/upload');
       final request = http.MultipartRequest('POST', uri)
-        ..fields['upload_preset'] = 'h3fuctn1'
+        ..fields['upload_preset'] = 'your_preset'
         ..files
             .add(await http.MultipartFile.fromPath('file', widget.photo.path));
 
@@ -298,7 +299,7 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
   }
 
   Future<void> predictImage(String? imageURL) async {
-    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.110.155:5000"));
+    Dio dio = Dio(BaseOptions(baseUrl: "http://localhost:5002"));
     dynamic data = {"image_uri": imageURL};
 
     try {
@@ -331,7 +332,7 @@ class _InfoScreenUnauthorizedState extends State<InfoScreenUnauthorized> {
   }
 
   Future<void> getResponse(String prompt) async {
-    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.110.155:8000"));
+    Dio dio = Dio(BaseOptions(baseUrl: "http://localhost:8000"));
     dio.options.headers['Content-Type'] = 'application/json';
     setState(() {
       _isLoading = true;

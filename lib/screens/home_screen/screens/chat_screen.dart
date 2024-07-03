@@ -17,10 +17,11 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _controller = TextEditingController();
   String _response = '';
+  String lastMessage = '';
   bool _isLoading = false;
 
   Future<void> _getResponse(String prompt) async {
-    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.110.155:8000"));
+    Dio dio = Dio(BaseOptions(baseUrl: "http://localhost:8000"));
     dio.options.headers['Content-Type'] = 'application/json';
     setState(() {
       _isLoading = true;
@@ -84,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             )),
                       ),
                       Text(
-                        "AI Health Assitant 💬",
+                        "Eye Care Chatbot 💬",
                         style: TextStyle(
                             fontSize: 22,
                             color: Colors.white,
@@ -106,14 +107,52 @@ class _ChatScreenState extends State<ChatScreen> {
                             padding:
                                 const EdgeInsets.fromLTRB(16.0, 16, 16, 100),
                             child: _response.isNotEmpty
-                                ? Html(data: _response)
+                                ? Column(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.85,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 20),
+                                        decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Question:",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Text(
+                                              lastMessage,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15),
+                                      Html(data: _response),
+                                    ],
+                                  )
                                 : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Chat messages will appear here',
-                                        style: TextStyle(fontSize: 15.0),
+                                        'Chat messages will appear here..',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                       const SizedBox(height: 20),
                                       Container(
@@ -192,6 +231,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           ? null
                           : () {
                               String message = _controller.text.trim();
+                              setState(() {
+                                lastMessage = _controller.text.trim();
+                                _response = '';
+                              });
                               if (message.isNotEmpty) {
                                 _getResponse(message);
                                 _controller.clear();

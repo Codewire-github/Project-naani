@@ -5,6 +5,7 @@ import 'package:naani/common/local_storage/local_storage.dart';
 import 'package:naani/common/widgets/back_button.dart';
 import 'package:naani/common/widgets/customButtons.dart';
 import 'package:naani/screens/Signup/screens/height_weight_screen.dart';
+import 'package:naani/screens/Signup/screens/location_screen.dart';
 
 // import 'package:naani/local_storage/const.dart';
 
@@ -96,7 +97,7 @@ class _NameScreenState extends State<NameScreen> {
                     await storage.write(
                         key: nameLS, value: _textController.text);
 
-                    Get.to(() => HeightWeightScreen());
+                    Get.to(() => LocationSelectionScreen());
                   } else {
                     () {};
                   }

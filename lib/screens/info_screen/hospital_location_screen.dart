@@ -41,7 +41,7 @@ class _HospitalLocationScreenState extends State<HospitalLocationScreen> {
   }
 
   Future<void> _getResponse(String location, Function onSuccess) async {
-    Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.110.155:8000"));
+    Dio dio = Dio(BaseOptions(baseUrl: "http://localhost:8000"));
     dio.options.headers['Content-Type'] = 'application/json';
     setState(() {
       _isLoading = true;
@@ -49,7 +49,10 @@ class _HospitalLocationScreenState extends State<HospitalLocationScreen> {
     dynamic data = {
       "model": "llama3",
       "prompt":
-          "Please provide a list of nearby eye hospitals including their name, location, and phone number in JSON format for the following location: $location. Just give me json in List<dynamic> formart with no extra sentences and dont add new key for json"
+          "Please provide a list of nearby eye hospitals including their name, location, and phone number in JSON format for the following location: $location. Just give me json in List<dynamic> formart with no extra sentences and dont add new key for json and give in the format {'name': "
+              ", 'location': "
+              ", 'phone': "
+              "} for each hospital"
     };
     try {
       Response response = await dio.post("/chat/llama3", data: data);
