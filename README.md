@@ -11,7 +11,7 @@
 ### 1. Cataract Detection
 Naani uses state-of-the-art image classification technology to help users easily identify cataracts. Simply upload an image, and the app will analyze it for signs of cataracts.
 
-![Cataract Detection](./images/cataract_detection.png)
+![Cataract Detection](./images/cataract_detection.PNG)
 
 ### 2. Chatbot Support
 Powered by the Llama 3 API, Naani's chatbot provides:
