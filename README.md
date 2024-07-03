@@ -1,6 +1,6 @@
 # Naani: Empowering Eye Health Through Technology
 
-![Naani Logo](./images/logo.png)
+<img src="./images/logo.png" alt="Naani Logo" width="200"/>
 
 ## Introduction
 
@@ -11,7 +11,7 @@
 ### 1. Cataract Detection
 Naani uses state-of-the-art image classification technology to help users easily identify cataracts. Simply upload an image, and the app will analyze it for signs of cataracts.
 
-![Cataract Detection](./images/cataract_detection.PNG)
+<img src="./images/cataract_detection.PNG" alt="Cataract Detection" width="400"/>
 
 ### 2. Chatbot Support
 Powered by the Llama 3 API, Naani's chatbot provides:
@@ -20,7 +20,7 @@ Powered by the Llama 3 API, Naani's chatbot provides:
 - Tips on eye care and exercises
 - Emotional support for users experiencing anxiety or concern about their eye health
 
-![Chatbot support](./images/chatbot.png)
+<img src="./images/chatbot.png" alt="Chat bot" width="400"/>
 
 ### 3. Guided Eye Exercises
 Naani includes a section dedicated to guided eye exercises, presented in an engaging format using GIFs. Exercises include:
@@ -33,7 +33,7 @@ Naani includes a section dedicated to guided eye exercises, presented in an enga
 - Shifting Eyes
 - The 20-20-20 Rule
 
-![Eye Exercises](./images/eye_exercises.png)
+<img src="./images/eye_exercises.png" alt="Eye Exercises" width="400"/>
 
 ## Getting Started
 
@@ -57,6 +57,6 @@ Naani includes a section dedicated to guided eye exercises, presented in an enga
 ### Running the App
 Connect your device or start an emulator, then run:
    ```bash
-   flutter pub get
+   flutter run
 
 
