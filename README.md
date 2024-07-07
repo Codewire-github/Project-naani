@@ -52,6 +52,10 @@ Naani includes a section dedicated to guided eye exercises, presented in an enga
 <img src="./images/eye_exercises.png" alt="Eye Exercises" width="400"/>
 </p>
 
+<p align="center">
+<img src="./images/exercise.png" alt="Eye Exercises" width="400"/>
+</p>
+
 ## Getting Started
 
 ### Prerequisites
